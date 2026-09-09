@@ -1,3 +1,32 @@
+<?php
+// Упражнение 1: Создание переменных $cols и $rows (от 1 до 10)
+$cols = 6;
+$rows = 6;
+
+// Упражнение 3: Создание функции drawTableс аргументами $cols, $rows, $color и типами данных
+function drawTable(int $cols = 10, int $rows = 10, string $color = 'yellow'): void {
+    echo '<table border="1" width="200" style="border-collapse: collapse;">';
+    
+    // Упражнение 1: Циклы for для отрисовки таблицы умножения
+    for ($tr = 1; $tr <= $rows; $tr++) {
+        echo '<tr>';
+        for ($td = 1; $td <= $cols; $td++) {
+            
+            // Упражнение 2: Оформление первой строки ($tr == 1) и первого столбца ($td == 1)
+            // Использование <th>, полужирного текста, центрирования и фонового цвета $color
+            if ($tr == 1 || $td == 1) {
+                echo "<th style='background-color: {$color}; text-align: center; font-weight: bold;'>" . ($tr * $td) . "</th>";
+            } else {
+                echo "<td style='text-align: center;'>" . ($tr * $td) . "</td>";
+            }
+            
+        }
+        echo '</tr>';
+    }
+    
+    echo '</table>';
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -10,17 +39,13 @@
 <body>
 
   <div id="header">
-    <!-- Верхняя часть страницы -->
     <img src="logo.gif" width="187" height="29" alt="Наш логотип" class="logo" />
     <span class="slogan">приходите к нам учиться</span>
-    <!-- Верхняя часть страницы -->
   </div>
 
   <div id="content">
-    <!-- Заголовок -->
     <h1>Таблица умножения</h1>
-    <!-- Заголовок -->
-    <!-- Область основного контента -->
+
     <form action=''>
       <label>Количество колонок: </label>
       <br />
@@ -37,69 +62,27 @@
       <br />
       <input type='submit' value='Создать' />
     </form>
-    <!-- Таблица -->
-    <table border='1' width="200">
-      <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>6</td>
-        <td>8</td>
-        <td>10</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>6</td>
-        <td>9</td>
-        <td>12</td>
-        <td>15</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>8</td>
-        <td>12</td>
-        <td>16</td>
-        <td>10</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>10</td>
-        <td>15</td>
-        <td>20</td>
-        <td>25</td>
-      </tr>
-    </table>
-    <!-- Таблица -->
-    <!-- Область основного контента -->
+
+    <!-- Упражнение 3: Отрисовка таблицы с помощью функции drawTable() -->
+    <?php drawTable($cols, $rows, 'yellow'); ?>
+
   </div>
+
   <div id="nav">
     <h2>Навигация по сайту</h2>
-    <!-- Меню -->
     <ul>
-      <li><a href='index.php'>Домой</a>
-      </li>
-      <li><a href='about.php'>О нас</a>
-      </li>
-      <li><a href='contact.php'>Контакты</a>
-      </li>
-      <li><a href='table.php'>Таблица умножения</a>
-      </li>
-      <li><a href='calc.php'>Калькулятор</a>
-      </li>
+      <li><a href='index.php'>Домой</a></li>
+      <li><a href='about.php'>О нас</a></li>
+      <li><a href='contact.php'>Контакты</a></li>
+      <li><a href='table.php'>Таблица умножения</a></li>
+      <li><a href='calc.php'>Калькулятор</a></li>
     </ul>
-    <!-- Меню -->
   </div>
+
   <div id="footer">
-    <!-- Нижняя часть страницы -->
-    &copy; Супер Мега Веб-мастер, 2000 &ndash; 2021
-    <!-- Нижняя часть страницы -->
+    &copy; Супер Мега Веб-мастер, 2000 &ndash; <?= date('Y') ?>
   </div>
+
 </body>
 
 </html>
