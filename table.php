@@ -1,10 +1,10 @@
 <?php
 // Упражнение 1: Создание переменных $cols и $rows (от 1 до 10)
-$cols = 6;
-$rows = 6;
+$cols = 20;
+$rows = 20;
 
 // Упражнение 3: Создание функции drawTableс аргументами $cols, $rows, $color и типами данных
-function drawTable(int $cols = 10, int $rows = 10, string $color = 'yellow'): void {
+function drawTable(int $cols = 10, int $rows = 10, string $color = 'green'): void {
     echo '<table border="1" width="200" style="border-collapse: collapse;">';
     
     // Упражнение 1: Циклы for для отрисовки таблицы умножения
