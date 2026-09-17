@@ -1,94 +1,73 @@
 <?php
-  // Инициализация массива меню
-  $leftMenu = [
-    ['link' => 'Домой', 'href' => 'index.php'],
-    ['link' => 'О нас', 'href' => 'about.php'],
-    ['link' => 'Контакты', 'href' => 'contact.php'],
-    ['link' => 'Таблица умножения', 'href' => 'table.php'],
-    ['link' => 'Калькулятор', 'href' => 'calc.php']
-  ];
+include 'inc/lib.inc.php';
+include 'inc/data.inc.php';
 
-  // Упражнение 4: Функция drawMenu с параметрами $menu (array) и $vertical (bool)
-  function drawMenu(array $menu, bool $vertical = true): void {
-      $style = $vertical ? '' : 'style="display: flex; list-style: none; gap: 15px; padding: 0;"';
-      
-      echo "<ul {$style}>";
-      foreach ($menu as $item) {
-          echo "<li><a href='{$item['href']}'>{$item['link']}</a></li>";
-      }
-      echo "</ul>";
-  }
+// Инициализация заголовков страницы
+$title = 'Сайт нашей школы';
+$welcome = 'Добро пожаловать';
+$header = "$welcome, Гость!";
 
-  // Установка локали и выбор значений даты
-  setlocale(LC_ALL, "russian");
-  $day = strftime('%d');
-  
-  $mon = strftime('%B');
-  if (!mb_check_encoding($mon, 'UTF-8')) {
-      $mon = mb_convert_encoding($mon, 'UTF-8', 'Windows-1251');
-  }
-  
-  $year = strftime('%Y');
+$id = isset($_GET['id']) ? strtolower(strip_tags(trim($_GET['id']))) : '';
 
-  // Приветствие по времени суток
-  $hour = (int) strftime('%H');
-  $welcome = '';
-
-  if ($hour >= 0 && $hour < 6) {
-      $welcome = 'Доброй ночи';
-  } elseif ($hour >= 6 && $hour < 12) {
-      $welcome = 'Доброе утро';
-  } elseif ($hour >= 12 && $hour < 18) {
-      $welcome = 'Добрый день';
-  } elseif ($hour >= 18 && $hour <= 23) {
-      $welcome = 'Добрый вечер';
-  } else {
-      $welcome = 'Доброй ночи';
-  }
+switch($id) {
+    case 'about':
+        $title = 'О сайте';
+        $header = 'О нашем сайте';
+        break;
+    case 'contact':
+        $title = 'Контакты';
+        $header = 'Обратная связь';
+        break;
+    case 'table':
+        $title = 'Таблица умножения';
+        $header = 'Таблица умножения';
+        break;
+    case 'calc':
+        $title = 'Он-лайн калькулятор';
+        $header = 'Калькулятор';
+        break;
+}
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Сайт нашей школы</title>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="style.css" />
+    <title><?php echo $title?></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-  <div id="header">
-    <img src="logo.gif" width="187" height="29" alt="Наш логотип" class="logo" />
-    <span class="slogan">приходите к нам учиться</span>
-  </div>
+    <?php include 'inc/top.inc.php'; ?>
 
-  <div id="content">
-    <h1><?= $welcome ?>, Гость!</h1>
+    <div id="content">
+        <h1><?php echo $header?></h1>
+        <?php
+        switch($id) {
+            case 'about':
+                include 'about.php';
+                break;
+            case 'contact':
+                include 'contact.php';
+                break;
+            case 'table':
+                include 'table.php';
+                break;
+            case 'calc':
+                include 'calc.php';
+                break;
+            default:
+                include 'inc/index.inc.php';
+        }
+        ?>
+    </div>
 
-    <blockquote>
-      <?php echo 'Сегодня ', $day, ' число, ', $mon, ' месяц, ', $year, ' год.'; ?>
-    </blockquote>
+    <div id="nav">
+        <?php include 'inc/menu.inc.php'; ?>
+    </div>
 
-    <h3>Зачем мы ходим в школу?</h3>
-    <p>
-      У нас каждую минуту что-то происходит и кипит жизнь...
-    </p>
-    <h3>Что такое ЕГЭ?</h3>
-    <p>
-      Аббревиатура ЕГЭ расшифровывается как "Единый Государственный Экзамен"...
-    </p>
-  </div>
-
-  <div id="nav">
-    <h2>Навигация по сайту</h2>
-    <!-- Упражнение 4: Отрисовка меню с помощью функции drawMenu -->
-    <?php drawMenu($leftMenu, true); ?>
-  </div>
-
-  <div id="footer">
-    &copy; Супер Мега Веб-мастер, 2000 &ndash; <?php echo $year; ?>
-  </div>
+    <div id="footer">
+        <?php include 'inc/bottom.inc.php'; ?>
+    </div>
 
 </body>
-
 </html>

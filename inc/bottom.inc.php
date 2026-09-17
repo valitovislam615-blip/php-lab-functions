@@ -1,0 +1,1 @@
+&copy; <?php echo COPYRIGHT?>, 2000 - <?= date('Y')?>
